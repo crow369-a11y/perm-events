@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    env_file: .env
+    volumes:
+      - ./data/db:/app/data/db
+      - ./data/sessions:/app/data/sessions
+    depends_on:
+      - ollama
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama
+    volumes:
+      - ./data/ollama_models:/root/.ollama
+    restart: unless-stopped
